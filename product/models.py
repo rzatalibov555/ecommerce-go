@@ -36,6 +36,7 @@ class Author(models.Model):
     status = models.BooleanField(default=True, verbose_name="Status")
     time_create = models.DateTimeField(auto_now_add=True, verbose_name="Yaranma tarixi")
     time_update = models.DateTimeField(auto_now=True, verbose_name="Yenilənmə tarixi")
+    
 
     def __str__(self):
         return self.name
@@ -47,9 +48,10 @@ class Product(models.Model):
     tax_price = models.FloatField(blank=True, null=True, verbose_name="Tax qiymət")
     discount_price = models.FloatField(blank=True, null=True, verbose_name="Endirimli qiymət")
     tags = models.ManyToManyField(Tag, blank=True, verbose_name="Tag")
+    coupon = models.IntegerField(blank=True, null=True)
     status = models.BooleanField(default=True, verbose_name="Status")
     time_create = models.DateTimeField(auto_now_add=True, verbose_name="Yaranma tarixi")
     time_update = models.DateTimeField(auto_now=True, verbose_name="Yenilənmə tarixi")
-
+    
     def __str__(self):
         return self.name
