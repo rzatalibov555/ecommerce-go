@@ -1,6 +1,6 @@
 from django.http import HttpResponseNotFound
 from django.shortcuts import render
-from django.db.models import Q, F, Value, CharField, FloatField
+from django.db.models import Q, F, Value, CharField, FloatField, ExpressionWrapper, Count
 from django.db.models.functions import Concat, Cast, Coalesce
 
 from product.models import *
@@ -8,9 +8,17 @@ from product.models import *
 
 def index(request):
     context = {
-        "category" : Category.objects.all(),
-        "product" : Product.objects.all(),
+        "category": Category.objects.annotate(
+            product_count = Count("products")
+        ),
+        "product": Product.objects.annotate(
+            total_price=ExpressionWrapper(
+                (F("price") * (1 - Coalesce(F("discount__name"), 0) / 100)) + Coalesce(F("tax_price"), 0),
+                output_field=FloatField()
+            )
+        )
     }
+    
 
     print(context)
     return render(request, "product/index.html", context)

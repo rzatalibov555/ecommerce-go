@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 
@@ -7,6 +8,15 @@ from django.db import models
 #     ("female", "female"),
 #     ("other", "other"),
 # )
+
+class Discount(models.Model):
+    name = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(100)], verbose_name="Endirim %")
+    status = models.BooleanField(default=True, verbose_name="Status")
+    time_create = models.DateTimeField(auto_now_add=True, verbose_name="Yaranma tarixi")
+    time_update = models.DateTimeField(auto_now=True, verbose_name="Yenilənmə tarixi")
+
+    def __str__(self):
+        return str(self.name)
 
 
 class Tag(models.Model):
@@ -55,8 +65,8 @@ class Product(models.Model):
     name = models.CharField(max_length=300, verbose_name="Ad")
     price = models.FloatField(verbose_name="Qiymət")
     tax_price = models.FloatField(blank=True, null=True, verbose_name="Tax qiymət")
-    discount_price = models.FloatField(blank=True, null=True, verbose_name="Endirimli qiymət")
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, related_name="category", null=True)
+    discount = models.ForeignKey(Discount, on_delete=models.SET_NULL, related_name="products", null=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, related_name="products", null=True)
     image = models.ImageField(upload_to="product/%Y/%m/%d/", verbose_name="Şəkİl")
     tags = models.ManyToManyField(Tag, blank=True, verbose_name="Tag")
     coupon = models.IntegerField(blank=True, null=True)
