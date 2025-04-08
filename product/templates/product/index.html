@@ -184,186 +184,30 @@
                     </div>
                 </div>
                 <div class="row g-2">
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="category-item">
-                            <a href="index.html#">
-                                <div class="category-info">
-                                    <div class="icon">
-                                        <img src="{% static 'product/assets/' %}img/icon/dress.svg" alt="">
+
+                    {% for c in category %}
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="category-item">
+                                <a href="index.html#">
+                                    <div class="category-info">
+                                        <div class="icon">
+                                            
+                                            {% if c.icon %}
+                                               <img src="{{c.icon.url}}" alt="" />
+                                            {% else %}
+                                                <img src="{% static 'product/assets/img/icon/trending.svg' %}" alt="" />
+                                            {% endif %}
+                                        </div>
+                                        <div class="content">
+                                            <h4>{{c.name}}</h4>
+                                            <p>30 Items</p>
+                                        </div>
                                     </div>
-                                    <div class="content">
-                                        <h4>Accessories</h4>
-                                        <p>30 Items</p>
-                                    </div>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="category-item">
-                            <a href="index.html#">
-                                <div class="category-info">
-                                    <div class="icon">
-                                        <img src="{% static 'product/assets/' %}img/icon/laptop.svg" alt="">
-                                    </div>
-                                    <div class="content">
-                                        <h4>Electronics</h4>
-                                        <p>25 Items</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="category-item">
-                            <a href="index.html#">
-                                <div class="category-info">
-                                    <div class="icon">
-                                        <img src="{% static 'product/assets/' %}img/icon/grocery.svg" alt="">
-                                    </div>
-                                    <div class="content">
-                                        <h4>Grocery & Market</h4>
-                                        <p>15 Items</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="category-item">
-                            <a href="index.html#">
-                                <div class="category-info">
-                                    <div class="icon">
-                                        <img src="{% static 'product/assets/' %}img/icon/music.svg" alt="">
-                                    </div>
-                                    <div class="content">
-                                        <h4>Music & Audio</h4>
-                                        <p>05 Items</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="category-item">
-                            <a href="index.html#">
-                                <div class="category-info">
-                                    <div class="icon">
-                                        <img src="{% static 'product/assets/' %}img/icon/furniture.svg" alt="">
-                                    </div>
-                                    <div class="content">
-                                        <h4>Furniture</h4>
-                                        <p>30 Items</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="category-item">
-                            <a href="index.html#">
-                                <div class="category-info">
-                                    <div class="icon">
-                                        <img src="{% static 'product/assets/' %}img/icon/toy.svg" alt="">
-                                    </div>
-                                    <div class="content">
-                                        <h4>Toy & Video Games</h4>
-                                        <p>12 Items</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="category-item">
-                            <a href="index.html#">
-                                <div class="category-info">
-                                    <div class="icon">
-                                        <img src="{% static 'product/assets/' %}img/icon/gifts.svg" alt="">
-                                    </div>
-                                    <div class="content">
-                                        <h4>Gifts</h4>
-                                        <p>08 Items</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="category-item">
-                            <a href="index.html#">
-                                <div class="category-info">
-                                    <div class="icon">
-                                        <img src="{% static 'product/assets/' %}img/icon/mother.svg" alt="">
-                                    </div>
-                                    <div class="content">
-                                        <h4>Babies & Moms</h4>
-                                        <p>14 Items</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="category-item">
-                            <a href="index.html#">
-                                <div class="category-info">
-                                    <div class="icon">
-                                        <img src="{% static 'product/assets/' %}img/icon/beauty.svg" alt="">
-                                    </div>
-                                    <div class="content">
-                                        <h4>Health & Beauty</h4>
-                                        <p>19 Items</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="category-item">
-                            <a href="index.html#">
-                                <div class="category-info">
-                                    <div class="icon">
-                                        <img src="{% static 'product/assets/' %}img/icon/sports.svg" alt="">
-                                    </div>
-                                    <div class="content">
-                                        <h4>Sports & Outdoor</h4>
-                                        <p>24 Items</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="category-item">
-                            <a href="index.html#">
-                                <div class="category-info">
-                                    <div class="icon">
-                                        <img src="{% static 'product/assets/' %}img/icon/garden.svg" alt="">
-                                    </div>
-                                    <div class="content">
-                                        <h4>Home & Garden</h4>
-                                        <p>09 Items</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="category-item">
-                            <a href="index.html#">
-                                <div class="category-info">
-                                    <div class="icon">
-                                        <img src="{% static 'product/assets/' %}img/icon/automotive.svg" alt="">
-                                    </div>
-                                    <div class="content">
-                                        <h4>Automotive</h4>
-                                        <p>16 Items</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                    {% endfor %}
+                    
                 </div>
             </div>
         </div>

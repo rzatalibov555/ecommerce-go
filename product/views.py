@@ -1,10 +1,19 @@
+from django.http import HttpResponseNotFound
 from django.shortcuts import render
 from django.db.models import Q, F, Value, CharField, FloatField
 from django.db.models.functions import Concat, Cast, Coalesce
 
+from product.models import *
+
 
 def index(request):
-    return render(request, "product/index.html")
+    context = {
+        "category" : Category.objects.all(),
+        "product" : Product.objects.all(),
+    }
+
+    print(context)
+    return render(request, "product/index.html", context)
 
 def allProducts(request):
     return render(request, "product/shop-grid-3.html")
@@ -12,6 +21,9 @@ def allProducts(request):
 def product_detail(request):
     return render(request, "product/shop-single.html")
 
+
+def pageNotFound(request, exception):
+    return HttpResponseNotFound("UPSSS! Sehife tapilmadi")
 
 # & - AND // VE
 # | - OR  // VE YA
