@@ -77,3 +77,20 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+    
+class SalesProduct(Product):
+
+    class Meta:
+        verbose_name="SalesProduct"
+        verbose_name_plural="SalesProduct"
+
+        proxy=True
+
+
+class NewCollection(Product):
+    
+    class Meta:
+        verbose_name="NewCollection"
+        verbose_name_plural="NewCollection"
+
+        proxy=True
