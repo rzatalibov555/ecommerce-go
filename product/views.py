@@ -1,7 +1,7 @@
 from django.http import HttpResponseNotFound
 from django.shortcuts import render
 from django.db.models import Q, F, Value, CharField, FloatField, ExpressionWrapper, Count
-from django.db.models.functions import Concat, Cast, Coalesce
+from django.db.models.functions import Concat, Cast, Coalesce, Round
 
 from product.models import *
 
@@ -35,7 +35,16 @@ def index(request):
             ).annotate(
                 total_price = F("price") *(1- F("discount_p") / 100) + F("tax")
             ).filter(discount__name__gt=0),
-      
+
+
+        "last_products": Product.objects.annotate(
+            tax= Coalesce(F("tax_price"), 0, output_field=FloatField()),
+            discount_p=Coalesce(F("discount__name"),0, output_field=FloatField())
+            ).annotate(
+                total_price = Round(F("price") *(1- F("discount_p") / 100) + F("tax"),2
+                )
+            ).order_by('-id')[:5]
+            
     }
     
 

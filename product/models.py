@@ -78,11 +78,12 @@ class Product(models.Model):
     def __str__(self):
         return self.name
     
+
 class SalesProduct(Product):
 
     class Meta:
-        verbose_name="SalesProduct"
-        verbose_name_plural="SalesProduct"
+        verbose_name="Endirimli Mehsullar"
+        verbose_name_plural="Endirimli Mehsullar"
 
         proxy=True
 

@@ -4,11 +4,9 @@ from .models import Tag, Author, Product, Gender, Category, Discount,SalesProduc
 
 admin.site.register([Tag, Author, Gender, Category, Discount,Product])
 
-
-
 @admin.register(SalesProduct)
 class SalesProductAdmin(admin.ModelAdmin):
-
+    list_display = ("name","price")
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         return qs.filter(discount__name__gt=0)
