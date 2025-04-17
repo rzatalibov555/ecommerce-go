@@ -26,3 +26,5 @@ class NewCollectionAdmin(admin.ModelAdmin):
 #         qs = super().get_queryset(request)
 #         return qs.filter(discount__name__gt=0)
     
+
+#sdsdsd
