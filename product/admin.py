@@ -27,4 +27,3 @@ class NewCollectionAdmin(admin.ModelAdmin):
 #         return qs.filter(discount__name__gt=0)
     
 
-#sdsdsd
