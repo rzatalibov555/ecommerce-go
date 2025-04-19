@@ -1,7 +1,10 @@
 from django.http import HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db.models import Q, F, Value, CharField, FloatField, ExpressionWrapper, Count
 from django.db.models.functions import Concat, Cast, Coalesce, Round
+
+
+from product.forms import ProductForm
 
 from product.models import *
 
@@ -60,6 +63,44 @@ def product_detail(request):
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound("UPSSS! Sehife tapilmadi")
+
+
+def product_create_view(request):
+
+    # request => method: GET,  -datani getir
+    # request => method: POST, -datani gonder db-ya
+    # context["form"] = form
+    
+  
+   
+    context = {}
+    form = ProductForm()
+
+    if request.method == "POST":
+        # print(request.POST)
+        form = ProductForm(data=request.POST)
+        if form.is_valid():
+            # print(form)
+            form.save(commit=True)
+            return redirect('product:index')
+        else:
+            print(form.errors) 
+    
+    context['form'] = form
+
+    return render(request, "product/vendor-add-product.html", context)
+
+
+
+
+
+
+
+
+
+
+
+
 
 # & - AND // VE
 # | - OR  // VE YA

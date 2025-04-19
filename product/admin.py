@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Tag, Author, Product, Gender, Category, Discount,SalesProduct,NewCollection
+from .models import Tag, Author, Product, Gender, Category, Discount, SalesProduct, NewCollection, AuthorProfile
 
 
-admin.site.register([Tag, Author, Gender, Category, Discount,Product])
+admin.site.register([Tag, Author, Gender, Category, Discount,Product, AuthorProfile])
 
 @admin.register(SalesProduct)
 class SalesProductAdmin(admin.ModelAdmin):

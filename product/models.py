@@ -9,6 +9,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 #     ("other", "other"),
 # )
 
+
 class Discount(models.Model):
     name = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(100)], verbose_name="Endirim %")
     status = models.BooleanField(default=True, verbose_name="Status")
@@ -17,7 +18,6 @@ class Discount(models.Model):
 
     def __str__(self):
         return str(self.name)
-
 
 class Tag(models.Model):
     name = models.CharField(max_length=300, verbose_name="Ad")
@@ -56,13 +56,26 @@ class Author(models.Model):
     time_create = models.DateTimeField(auto_now_add=True, verbose_name="Yaranma tarixi")
     time_update = models.DateTimeField(auto_now=True, verbose_name="Yenilənmə tarixi")
     
-
     def __str__(self):
         return self.name
+
+class SocialMedia(models.Model):
+    facebook  = models.URLField(blank=True, null=True)
+    instagram = models.URLField(blank=True, null=True)
+    linkedin  = models.URLField(blank=True, null=True)
+    youtube   = models.URLField(blank=True, null=True)
+
+    class Meta:
+        abstract = True
+
+class AuthorProfile(Author, SocialMedia):
+    bio = models.TextField(blank=True, null=True)
+
 
 class Product(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name="products")
     name = models.CharField(max_length=300, verbose_name="Ad")
+    description = models.TextField(null=True, blank=True)
     price = models.FloatField(verbose_name="Qiymət")
     tax_price = models.FloatField(blank=True, null=True, verbose_name="Tax qiymət")
     discount = models.ForeignKey(Discount, on_delete=models.SET_NULL, related_name="products", null=True)
@@ -77,7 +90,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-    
+
+
+
 
 class SalesProduct(Product):
 
