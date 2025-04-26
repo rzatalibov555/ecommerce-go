@@ -71,21 +71,26 @@ def product_create_view(request):
     # request => method: POST, -datani gonder db-ya
     # context["form"] = form
     
-  
-   
     context = {}
     form = ProductForm()
 
     if request.method == "POST":
         # print(request.POST)
+        # name = request.POST.get("name")
         form = ProductForm(data=request.POST)
+        # form = ProductForm(request.POST, request.FILES)
+     
+        
         if form.is_valid():
             # print(form)
             form.save(commit=True)
             return redirect('product:index')
         else:
-            print(form.errors) 
-    
+            print(form.errors)
+            # form = ProductForm()
+    else:
+        form = ProductForm()
+        
     context['form'] = form
 
     return render(request, "product/vendor-add-product.html", context)

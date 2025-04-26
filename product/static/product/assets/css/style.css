@@ -132,7 +132,9 @@ Table of contents
   --footer-text-color: #F5FAFF;
 }
 
-
+.errorlist .nonfield li{
+  color: red!important;
+}
 
 /*====================
 3. General css
