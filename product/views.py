@@ -1,4 +1,4 @@
-from django.http import HttpResponseNotFound
+from django.http import Http404, HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.db.models import Q, F, Value, CharField, FloatField, ExpressionWrapper, Count
 from django.db.models.functions import Concat, Cast, Coalesce, Round
@@ -11,9 +11,10 @@ from product.models import *
 
 def index(request):
     context = {
+        "nav_cat":True,
         "category": Category.objects.annotate(
             product_count = Count("products")
-        ),
+        ).order_by('-time_create')[:10],
         "product": Product.objects.annotate(
             tax= Coalesce(F("tax_price"), 0, output_field=FloatField()),
             discount_p=Coalesce(F("discount__name"),0, output_field=FloatField())
@@ -51,7 +52,7 @@ def index(request):
     }
     
 
-    print(context)
+    # print(context)
     return render(request, "product/index.html", context)
 
 def allProducts(request):
@@ -64,6 +65,35 @@ def product_detail(request):
 def pageNotFound(request, exception):
     return HttpResponseNotFound("UPSSS! Sehife tapilmadi")
 
+def all_categories(request):
+    context= {
+        "nav_cat":False,
+        "category_all":Category.objects.annotate(cat_count=Count("products")).filter(status=True)
+    }
+
+    return render(request, "product/category.html", context)
+
+def category_products(request,c_id):
+    try:
+        category = Category.objects.get(id=c_id)
+    except:
+        raise Http404()
+    
+    category_products = Product.objects.filter(status=True).filter(category=c_id).annotate(
+            tax= Coalesce(F("tax_price"), 0, output_field=FloatField()),
+            discount_p=Coalesce(F("discount__name"),0, output_field=FloatField())
+            ).annotate(total_price = Round(F("price") *(1- F("discount_p") / 100) + F("tax"),2))
+    
+    categories = Category.objects.annotate(product_count=Count("products"))[:10]
+
+    context={
+        "category_products": category_products,
+        "category_products_count": category_products.count(),
+        "category": category,
+        "categories": categories,
+    
+    }
+    return render(request, "product/shop-grid.html",context)
 
 def product_create_view(request):
 

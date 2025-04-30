@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
@@ -37,6 +38,11 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+    def get_absolute_url(self):
+        return reverse("product:category_products", kwargs={"c_id": self.pk})
+    
 
 class Gender(models.Model):
     gender = models.CharField(max_length=300, verbose_name="Ad")
