@@ -1,7 +1,8 @@
 from django.db import models
 from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
-
+# from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 # Create your models here.
 
 # GENDER = (
@@ -81,7 +82,8 @@ class AuthorProfile(Author, SocialMedia):
 class Product(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name="products")
     name = models.CharField(max_length=300, verbose_name="Ad")
-    description = models.TextField(null=True, blank=True)
+    description = RichTextUploadingField(null=True, blank=True, verbose_name="Ətraflı")
+    # description = models.TextField(null=True, blank=True)
     price = models.FloatField(verbose_name="Qiymət")
     tax_price = models.FloatField(blank=True, null=True, verbose_name="Tax qiymət")
     discount = models.ForeignKey(Discount, on_delete=models.SET_NULL, related_name="products", null=True)
@@ -97,7 +99,12 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-
+class ProductImage(models.Model):
+        product = models.ForeignKey(Product, related_name="Images", on_delete=models.CASCADE)
+        image = models.ImageField(upload_to="product/gallery/%Y/%m/%d/")
+    
+        def __str__(self):
+            return f"{self.product.name} image"
 
 
 class SalesProduct(Product):

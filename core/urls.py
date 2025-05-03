@@ -23,6 +23,7 @@ from product.views import pageNotFound
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("product.urls")),
+    path('ckeditor/', include('ckeditor_uploader.urls')) #Uploader istifade edeceksizse
 ]
 
 handler404 = pageNotFound   
